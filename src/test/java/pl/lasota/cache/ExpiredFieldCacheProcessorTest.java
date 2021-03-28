@@ -3,7 +3,7 @@ package pl.lasota.cache;
 import org.junit.jupiter.api.Test;
 import java.util.concurrent.TimeUnit;
 
-public class ExpiredCacheProcessorTest {
+public class ExpiredFieldCacheProcessorTest {
 
     @Test
     public void generalTestExpiredCache() throws InterruptedException {

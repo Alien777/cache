@@ -40,15 +40,17 @@ public class SimpleCache<K, V> implements Cache<K, V> {
         return cache.containsKey(k);
     }
 
-    void cleanup() {
+    @Override
+    public void cleanup() {
         cache.clear();
+    }
+
+    @Override
+    public long size() {
+        return cache.size();
     }
 
     void forEach(BiConsumer<K, V> consumer) {
         cache.forEach(consumer);
-    }
-
-    long size() {
-        return cache.size();
     }
 }

@@ -10,11 +10,11 @@ final class ExpiredCreator<K, V> {
         life = System.currentTimeMillis() + timeUnit.toMillis(maxLife);
     }
 
-    Expired<K> getKey(K k) {
-        return new Expired<>(k, life);
+    ExpiredField<K> getKey(K k) {
+        return new ExpiredField<>(k, life);
     }
 
-    Expired<V> getValue(V v) {
-        return new Expired<>(v, life);
+    ExpiredField<V> getValue(V v) {
+        return new ExpiredField<>(v, life);
     }
 }

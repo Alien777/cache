@@ -31,6 +31,10 @@ public class CacheControl {
         return caches.get(id);
     }
 
+    public Expired getExpired(String id) {
+        return (Expired) caches.get(id);
+    }
+
 }
 
 

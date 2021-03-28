@@ -4,15 +4,15 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentMap;
 
 
-final class ExpiredCacheProcessor<K, V> extends SimpleCache<Expired<K>, Expired<V>> {
+final class ExpiredCacheProcessor<K, V> extends SimpleCache<ExpiredField<K>, ExpiredField<V>> {
 
-    ExpiredCacheProcessor(ConcurrentMap<Expired<K>, Expired<V>> cache) {
+    ExpiredCacheProcessor(ConcurrentMap<ExpiredField<K>, ExpiredField<V>> cache) {
         super(cache);
     }
 
     @Override
-    public Optional<Expired<V>> get(Expired<K> k) {
-        Optional<Expired<V>> v = super.get(k);
+    public Optional<ExpiredField<V>> get(ExpiredField<K> k) {
+        Optional<ExpiredField<V>> v = super.get(k);
         if (v.isPresent()) {
             if (v.get().isExpired()) {
                 remove(k);
@@ -25,8 +25,8 @@ final class ExpiredCacheProcessor<K, V> extends SimpleCache<Expired<K>, Expired<
     }
 
     @Override
-    public boolean containsKey(Expired<K> k) {
-        Optional<Expired<V>> v = super.get(k);
+    public boolean containsKey(ExpiredField<K> k) {
+        Optional<ExpiredField<V>> v = super.get(k);
         if (v.isPresent()) {
             if (v.get().isExpired()) {
                 remove(k);
@@ -38,10 +38,11 @@ final class ExpiredCacheProcessor<K, V> extends SimpleCache<Expired<K>, Expired<
         return false;
     }
 
-    void cleanup() {
-        super.forEach((kExpired, v) -> {
-            if (kExpired.isExpired()) {
-                remove(kExpired);
+    @Override
+    public void cleanup() {
+        super.forEach((kExpiredField, v) -> {
+            if (kExpiredField.isExpired()) {
+                remove(kExpiredField);
             }
         });
     }
